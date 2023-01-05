@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="grid-container">
+  <div class="modal closed project-modal">
+    <div class="project-modal-dialog modal-dialog grid-container">
+      <h2 class="modal-heading">New Project</h2>
+      <div>
+        <label for="project-name-input">Project Title</label>
+        <input type="text" id="project-name-input" class="modal-input">
+        <p class="project-input-error error-message"></p>
+      </div>
+      <div class="flex-container modal-btn-container">
+        <button class="modal-btn project-add-btn confirm-btn">Ok</button>
+        <button class="modal-btn project-cancel-btn cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal closed task-modal">
+    <div class="task-modal-dialog modal-dialog grid-container">
+      <h2 class="modal-heading">New Task</h2>
+      <div>
+        <label for="task-name-input">Task Name</label>
+        <input type="text" id="task-name-input" class="modal-input">
+        <p class="task-input-error error-message"></p>
+      </div>
+      <div>
+        <label for="priority-select">Priority</label>
+        <select id="priority-select">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+      <div>
+        <label for="task-duedate-input">Due Date</label>
+        <input type="date" id="task-duedate-input" class="modal-input">
+      </div>
+      <div>
+        <label for="task-description-input">Description</label>
+        <input type="text" id="task-description-input" class="modal-input">
+      </div>
+      <div class="flex-container modal-btn-container">
+        <button class="modal-btn task-add-btn confirm-btn">Ok</button>
+        <button class="modal-btn task-cancel-btn cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <header>
+    <div class="logo-container flex-container">
+      <h1>To-doable</h1>
+    </div>
+    <div class="date-container"><time class="date"></time></div>
+  </header>
+  <aside class="projects-container">
+    <div class="default-projects-container flex-container">
+      <button id="inbox" class="project default-project" type="button">Inbox</button>
+      <button id="today" class="project default-project" type="button">Today</button>
+      <button id="this-week" class="project default-project" type="button">This Week</button>
+    </div>
+    <div>
+      <h2>Projects</h2>
+      <div class="user-projects-container">
+      </div>
+      <button class="new-project-btn" type="button">New Project</button>
+    </div>
+  </aside>
+  <main>
+    <div class="container project-display">
+      <h2 id="project-name">Inbox</h2>
+      <button class="new-task-btn" type="button">Add Task</button>
+      <div>
+        <ul class="task-list">
+        </ul>
+      </div>
+    </div>
+   
+  </main>
+  <footer>
+    <p>footer stuff yo</p>
+  </footer> 
+  <script src="../dist/index.js"></script>
+</body>
+</html>

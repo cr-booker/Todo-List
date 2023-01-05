@@ -1,0 +1,195 @@
+/* ========*/
+/* Reset */
+/* =======*/
+*, 
+*::before, 
+*::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/*==========*/
+/* Palette */
+/*=========*/
+
+
+/*==================*/
+/* Element Styling */
+/*=================*/
+body{
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+    "header"
+    "sidebar"
+    "main"
+    "footer";
+}
+
+header{
+    grid-area: header;
+    background: red;
+    padding: 1em;
+}
+
+aside{
+    grid-area: sidebar;
+    background: pink;
+}
+
+label{
+    display: block;
+}
+
+button{
+    cursor: pointer;
+}
+
+main{
+    grid-area: main;
+    background: goldenrod;
+}
+
+footer{
+    grid-area: footer;
+    background: blueviolet;
+    padding: .7em 0;
+}
+
+/*==================*/
+/*    Utilities    */
+/*=================*/
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.grid-container{
+    display: grid;
+}
+
+.flex-container{
+    display: flex;
+}
+
+.modal.closed{
+    visibility: hidden;
+    opacity: 0;
+}
+
+/*==================*/
+/*      Layout     */
+/*=================*/
+
+/* Modals */
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: black;
+    opacity: 1;
+    transition: all 0.15s ease-in;
+    background-color: rgba(0, 0, 0, 0.5);
+ }
+
+ .modal-dialog{
+    position: relative;
+    gap: 1em;
+    border-radius: 10px;
+    padding: 1.25em 2em;
+    background: white;
+	border-radius: 10px;
+    border-top: 30px solid aqua;
+ }
+
+ .modal-heading{
+     text-align: center;
+ }
+
+.modal-btn{   
+    border: black 1px solid;
+    padding: .5em 1em;
+    border-radius: 4px;
+    background: whitesmoke;
+    font-size: 1rem;
+}
+
+.modal-input{
+    font-size: 1rem;
+}
+
+.error-message{
+    color: red;
+    font-size: .8em;
+    text-align: center;
+}
+
+.modal-btn-container{
+    justify-content: center;
+    gap: 1em;
+}
+
+/* Sidebar */
+.projects-container{
+    text-align: center;
+}
+
+.default-projects-container{
+    flex-direction: column;
+}
+
+.project{
+    width: 80%;
+    margin: 1em auto;
+    border: none;
+    border-radius: 5px;
+    padding: .5em;
+    cursor: pointer;
+}
+
+.user-project{
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.user-project-name{
+    pointer-events: none;
+    grid-column-start: 2;
+}
+
+.delete-project-icon{
+    grid-column-start: 4;
+    font-size: 1.5rem;
+}
+
+/* Project Display */
+
+.project-display{
+    background-color: blueviolet;
+}
+
+
+/*==================*/
+/*    M. Queries   */
+/*=================*/
+
+@media (min-width:50em){
+    body{
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+    }
+}
