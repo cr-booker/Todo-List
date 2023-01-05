@@ -59,3 +59,5 @@ function Project(projectName){
           addTask, deleteTask, clearAllTasks, getWeeksTasks, 
           getTodaysTasks}
 }
+
+export {Project}
