@@ -36,7 +36,7 @@ function Task(taskName,taskPriority="", taskDueDate="No due Date", taskDescripti
     _description = newDescription;
   }
 
-  return {name, _priority,_description, _dueDate,getName, setName, 
+  return {_name, _priority,_description, _dueDate,getName, setName, 
           getPriority, setPriority, getDueDate, setDueDate, 
           getDescription, setDescription}
 }
