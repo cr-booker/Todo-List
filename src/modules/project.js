@@ -47,6 +47,10 @@ function Project(projectName){
     return _tasks.filter(task => isToday(task.getDueDate()))
   }
 
+  function clearAllTasks(){
+    _tasks.length = 0;
+  }
+
   function getWeeksTasks(){
     return _tasks.filter(task => isThisWeek(task.getDueDate()));
   }
