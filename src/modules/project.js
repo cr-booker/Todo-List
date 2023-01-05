@@ -55,7 +55,7 @@ function Project(projectName){
     return _tasks.filter(task => isThisWeek(task.getDueDate()));
   }
 
-  return {_name,_tasks,getName, setName, getTasks, setTasks, getTask, 
+  return {_name, _tasks, getName, setName, getTasks, setTasks, getTask, 
           addTask, deleteTask, clearAllTasks, getWeeksTasks, 
           getTodaysTasks}
 }
