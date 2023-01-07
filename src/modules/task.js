@@ -3,7 +3,7 @@ function Task(taskName,taskPriority="", taskDueDate="No due Date", taskDescripti
   let _priority = taskPriority;
   let _dueDate = taskDueDate;
   let _description = taskDescription;
-  return Object.assign(TaskMethods(), {_name, _priority, _description, _dueDate,})
+  return Object.assign(TaskMethods(), {_name, _priority, _description, _dueDate,});
 }
 
 function TaskMethods(){
@@ -40,7 +40,7 @@ function TaskMethods(){
   }
 
  return Object.create({getName, setName, getPriority,setPriority, 
-  getDescription, setDescription})
+  getDescription, setDescription});
 }
 
 export {Task, TaskMethods}
