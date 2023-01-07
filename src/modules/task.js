@@ -39,8 +39,8 @@ function TaskMethods(){
     this._description = newDescription;
   }
 
- return Object.create({getName, setName, getPriority,setPriority, 
-  getDescription, setDescription});
+ return Object.create({getName, setName, getPriority, setPriority, 
+  getDueDate, setDueDate, getDescription, setDescription});
 }
 
 export {Task, TaskMethods}
