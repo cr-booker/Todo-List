@@ -1,46 +1,46 @@
 function Task(taskName,taskPriority="", taskDueDate="No due Date", taskDescription=""){
-  let _name = taskName;
-  let _priority = taskPriority;
-  let _dueDate = taskDueDate;
-  let _description = taskDescription;
-  return Object.assign(TaskMethods(), {_name, _priority, _description, _dueDate,});
+  let name = taskName;
+  let priority = taskPriority;
+  let dueDate = taskDueDate;
+  let description = taskDescription;
+  return Object.assign(TaskProto(), {name, priority, description, dueDate,});
 }
 
-function TaskMethods(){
+function TaskProto(){
   function getName(){
-    return this._name;
+    return this.name;
   }
 
   function setName(newName){
-     this._name = newName;
+     this.name = newName;
   }
 
   function getPriority(){
-    return this._priority;
+    return this.priority;
   }
 
   function setPriority(newPriorityLevel){
-    this._priority = newPriorityLevel;
+    this.priority = newPriorityLevel;
   }
 
   function getDueDate(){
-    return this._dueDate;
+    return this.dueDate;
   }
 
   function setDueDate(newDate){
-    this._dueDate = newDate;
+    this.dueDate = newDate;
   }
 
   function getDescription(){
-    return this._description;
+    return this.description;
   }
 
   function setDescription(newDescription){
-    this._description = newDescription;
+    this.description = newDescription;
   }
 
  return Object.create({getName, setName, getPriority, setPriority, 
   getDueDate, setDueDate, getDescription, setDescription});
 }
 
-export {Task, TaskMethods}
+export {Task, TaskProto}
