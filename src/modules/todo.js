@@ -22,7 +22,7 @@ function TodoProto(){
   }
 
   function addProject(newProject){
-    if (this.projects.find(project => project.getName() === newProjectName.getName() )){
+    if (this.projects.find(project => project.getName() === newProject.getName() )){
          return;
     }
     this.projects.push(newProject);
