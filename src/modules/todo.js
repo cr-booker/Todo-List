@@ -21,11 +21,11 @@ function TodoProto(){
     this.projects = newProjects;
   }
 
-  function addProject(newProjectName){
-    if (this.projects.find(project => project.getName() === newProjectName)){
+  function addProject(newProject){
+    if (this.projects.find(project => project.getName() === newProjectName.getName() )){
          return;
     }
-    this.projects.push(Project(newProjectName))
+    this.projects.push(newProject);
   }
 
   function deleteProject(projectName){
