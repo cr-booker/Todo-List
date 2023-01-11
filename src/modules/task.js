@@ -1,9 +1,9 @@
-function Task(taskName,taskPriority="", taskDueDate="No due Date", taskDescription=""){
+function Task(taskName, taskPriority="", taskDueDate="No due Date", taskDescription=""){
   let name = taskName;
   let priority = taskPriority;
   let dueDate = taskDueDate;
   let description = taskDescription;
-  return Object.assign(TaskProto(), {name, priority, description, dueDate,});
+  return Object.assign(TaskProto(), {name, priority, description, dueDate});
 }
 
 function TaskProto(){
