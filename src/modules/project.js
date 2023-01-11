@@ -28,8 +28,8 @@ function ProjectProto(){
   }
 
   function addTask(newTask){
-    if (this.tasks.find(task => task.getName() === newTask.getName())){
-      return -1;
+    if (this.tasks.find(task => task.getName() === newTask.getName() )){
+      return;
     }
     this.tasks.push(newTask);
   }
