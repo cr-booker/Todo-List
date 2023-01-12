@@ -9,28 +9,24 @@ function Todo(){
 }
 
 function TodoProto(){
-  function getProjects(){
-    return this.projects;
-  }
+  function contains(projectName){
+    return this.projects.some(project => project.name === projectName);
 
+  }
   function getProject(projectName){
-    return this.projects.find(project => project.getName() === projectName);
+    return this.projects.find(project => project.name) === projectName;
 }
 
-  function setProjects(newProjects){
-    this.projects = newProjects;
-  }
-
-  function addProject(newProject){
-    if (this.projects.find(project => project.getName() === newProject.getName() )){
+  function addProject(newProjectName){
+    if (this.projects.find(project => project.name === newProjectName )){
          return;
     }
-    this.projects.push(newProject);
+    this.projects.push(newProjectName);
   }
 
   function deleteProject(projectName){
     const indexOfProject = this.projects.findIndex(project => {
-      return project.getName() === projectName;
+      return project.name === projectName;
     });
         
     if (indexOfProject !== -1){
@@ -38,7 +34,7 @@ function TodoProto(){
     }
   }
 
-  return Object.create({getProjects, setProjects, getProject, addProject, deleteProject});
+  return Object.create({contains, getProject, addProject, deleteProject});
 }
 
 export {Todo, TodoProto}
