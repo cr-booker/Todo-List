@@ -1,55 +1,40 @@
-import { TaskProto } from "./task";
 import { ProjectProto } from "./project";
 import { TodoProto } from "./todo";
 
-function Storage(){
-  function getTodoList(){
+function Storage(){}
+  Storage.getTodoList = function(){
     const todoList = Object.assign(TodoProto(), JSON.parse(localStorage.getItem("todoable-list")));
-    todoList.setProjects(
-      todoList.getProjects()
-      .map(project => Object.assign(ProjectProto(), project))
-      );
-
-    todoList
-      .getProjects()
-      .forEach(project => 
-        project.setTasks(
-          project.getTasks().map(task => Object.assign(TaskProto(), task))
-        )
-      );
+    todoList.projects = todoList.projects.map(project => Object.assign(ProjectProto(), project));
+    console.log(todoList.projects)
     return todoList;
   }
 
-  function saveTodoList(data){
+  Storage.saveTodoList =  function(data){
     localStorage.setItem("todoable-list", JSON.stringify(data));
   }
 
-  function addProject(project){
-    const todoList = getTodoList();
+  Storage.addProject = function(project){
+    const todoList = Storage.getTodoList();
     todoList.addProject(project);
-    saveTodoList(todoList);
+    Storage.saveTodoList(todoList);
   }
 
-  function deleteProject(projectName){
-    const todoList = getTodoList();
+  Storage.deleteProject = function(projectName){
+    const todoList = Storage.getTodoList();
     todoList.deleteProject(projectName)
-    saveTodoList(todoList);
+    Storage.saveTodoList(todoList);
   }
 
-  function addTask(projectName, task){
-    const todoList = getTodoList();
+  Storage.addTask = function(projectName, task){
+    const todoList = Storage.getTodoList();
     todoList.getProject(projectName).addTask(task);
-    saveTodoList(todoList);
+    Storage.saveTodoList(todoList);
   }
 
-  function deleteTask(projectName, task){
-    const todoList = getTodoList();
+  Storage.deleteTask = function(projectName, task){
+    const todoList = Storage.getTodoList();
     todoList.getProject(projectName).deleteTask(task);
-    saveTodoList(todoList);
+    Storage.saveTodoList(todoList);
   }
-  
-  return {getTodoList, saveTodoList, addProject,
-          deleteProject, addTask, deleteTask}
-}
 
 export {Storage}
