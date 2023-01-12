@@ -4,6 +4,10 @@ import { Todo } from "./todo";
 import { Storage } from "./storage";
 
 function UI(){
+  function init(){
+    initProjectBtns()
+  }
+  
   function showProjectModal(){
     const projectModal = document.querySelector(".project-modal");
     projectModal.classList.remove("closed");
@@ -52,7 +56,8 @@ function UI(){
     userProjects.appendChild(newProject);
   }
 
-  const showProjectModalBtn = document.querySelector(".new-project-btn");
+  function initProjectBtns(){
+    const showProjectModalBtn = document.querySelector(".new-project-btn");
   showProjectModalBtn.addEventListener("click", showProjectModal);
 
   const closeProjectModalBtn = document.querySelector(".project-cancel-btn");
@@ -60,8 +65,7 @@ function UI(){
 
   const addProjectBtn = document.querySelector(".project-add-btn")
   addProjectBtn.addEventListener("click", addProject);
+  }
+  
 
 }
-
-
-UI()
