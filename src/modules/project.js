@@ -7,31 +7,15 @@ function Project(projectName){
 }
 
 function ProjectProto(){
-  function getName(){
-    return this.name;
-  }
-
-  function setName(newName){
-    this.name = newName;
-  }
-
-  function getTasks(){
-    return this.tasks;
-  }
-
   function getTask(taskName){
-    return this.tasks.some(task => task.getName() === taskName);
+    return this.tasks.some(task => task.name === taskName);
   }
 
-  function setTasks(newTasks){
-    this.tasks = newTasks;
-  }
-
-  function addTask(newTask){
-    if (this.tasks.find(task => task.getName() === newTask.getName() )){
+  function addTask(newTaskName){
+    if (this.tasks.find(task => task.name === newTaskName )){
       return;
     }
-    this.tasks.push(newTask);
+    this.tasks.push(newTaskName);
   }
 
   function deleteTask(taskName){
@@ -45,7 +29,7 @@ function ProjectProto(){
   }
 
   function getTodaysTasks(){
-    return this.tasks.filter(task => isToday(task.getDueDate()));
+    return this.tasks.filter(task => isToday(task.dueDate));
   }
 
   function clearAllTasks(){
@@ -53,11 +37,10 @@ function ProjectProto(){
   }
 
   function getWeeksTasks(){
-    return this.tasks.filter(task => isThisWeek(task.getDueDate()));
+    return this.tasks.filter(task => isThisWeek(task.dueDate));
   }
 
-  return Object.create({getName, setName, getTasks, setTasks, getTask, 
-    addTask, deleteTask, clearAllTasks, getWeeksTasks, getTodaysTasks});
+  return Object.create({getTask, addTask, deleteTask, clearAllTasks, getWeeksTasks, getTodaysTasks});
 }
 
 export {Project, ProjectProto}
