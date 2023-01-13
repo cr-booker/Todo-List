@@ -7,6 +7,10 @@ function Project(projectName){
 }
 
 function ProjectProto(){
+  function contains(taskName){
+    return this.tasks.some(project => task.name === taskName);
+  }
+
   function getTask(taskName){
     return this.tasks.some(task => task.name === taskName);
   }
@@ -40,7 +44,7 @@ function ProjectProto(){
     return this.tasks.filter(task => isThisWeek(task.dueDate));
   }
 
-  return Object.create({getTask, addTask, deleteTask, clearAllTasks, getWeeksTasks, getTodaysTasks});
+  return Object.create({contains, getTask, addTask, deleteTask, clearAllTasks, getWeeksTasks, getTodaysTasks});
 }
 
 export {Project, ProjectProto}
