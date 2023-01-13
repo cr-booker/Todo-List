@@ -11,8 +11,8 @@ function Todo(){
 function TodoProto(){
   function contains(projectName){
     return this.projects.some(project => project.name === projectName);
-
   }
+
   function getProject(projectName){
     return this.projects.find(project => project.name) === projectName;
 }
