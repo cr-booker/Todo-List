@@ -8,15 +8,15 @@ function Project(projectName){
 
 function ProjectProto(){
   function contains(taskName){
-    return this.tasks.some(project => task.name === taskName);
-  }
-
-  function getTask(taskName){
     return this.tasks.some(task => task.name === taskName);
   }
 
+  function getTask(taskName){
+    return this.tasks.find(task => task.name === taskName);
+  }
+
   function addTask(newTaskName){
-    if (this.tasks.find(task => task.name === newTaskName )){
+    if (this.tasks.some(task => task.name === newTaskName )){
       return;
     }
     this.tasks.push(newTaskName);
