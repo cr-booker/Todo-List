@@ -5,7 +5,17 @@ import { Storage } from "./storage";
 
 function UI(){}
   UI.init = function(){
-    initProjectBtns()
+    UI.loadProjects();
+    UI.initProjectBtns();
+  }
+
+  UI.loadProjects = function(){
+    const todoList = Storage.getTodoList()["projects"];
+    todoList.forEach(project => {
+      if (! ["Inbox", "Today", "This Week"].includes(project.name)){
+        UI.createProjectBtn(project.name)
+      }
+    })
   }
   
   UI.showProjectModal = function(){
@@ -24,18 +34,18 @@ function UI(){}
     const projectInputContent = projectNameInput.value.trim();
     if (!projectInputContent){
       inputErrorMessage.textContent = "Project name cannot be blank.";
-      return
+      return;
     }
     if (Storage.getTodoList().contains(projectInputContent)){
       projectNameInput.value = "";
       inputErrorMessage.textContent = "Project name already taken.";
-      return
+      return;
     }
     inputErrorMessage.textContent = "";
     Storage.addProject(Project(projectInputContent));
     projectNameInput.value = "";
-    createProjectBtn(projectInputContent);
-    closeProjectModal();
+    UI.createProjectBtn(projectInputContent);
+    UI.closeProjectModal();
   }
 
   UI.createProjectBtn = function(projectName){
@@ -61,7 +71,7 @@ function UI(){}
     const projectName = parentNode.querySelector('.user-project-name').textContent;
     Storage.deleteProject(projectName);
     const displayNext = parentNode.nextElementSibling || parentNode.previousElementSibling || document.getElementById("inbox");
-    displayProject(displayNext);
+    UI.displayProject(displayNext);
     parentNode.remove();
   }
 
@@ -75,24 +85,25 @@ function UI(){}
 
   UI. delegateProjects = function(target){
     if (target.classList.contains("delete")){
-      deleteProjectBtn(target);
+      UI.deleteProjectBtn(target);
     }
     else if (target.classList.contains("project")){
-      displayProject(target)
+      UI.displayProject(target)
     }
   }
 
-  UI. initProjectBtns = function(){
+  UI.initProjectBtns = function(){
     const showProjectModalBtn = document.querySelector(".new-project-btn");
-    showProjectModalBtn.addEventListener("click", showProjectModal);
+    showProjectModalBtn.addEventListener("click", UI.showProjectModal);
 
     const closeProjectModalBtn = document.querySelector(".project-cancel-btn");
-    closeProjectModalBtn.addEventListener("click", closeProjectModal);
+    closeProjectModalBtn.addEventListener("click", UI.closeProjectModal);
 
     const addProjectBtn = document.querySelector(".project-add-btn");
-    addProjectBtn.addEventListener("click", addProject);
+    addProjectBtn.addEventListener("click", UI.addProject);
 
   const projectsContainer = document.querySelector(".projects-container");
-  projectsContainer.addEventListener("click", e => delegateProjects(e.target));
+  projectsContainer.addEventListener("click", e => UI.delegateProjects(e.target));
   }
- 
+
+UI.init()
