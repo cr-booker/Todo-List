@@ -7,7 +7,6 @@ function Storage(){}
 Storage.getTodoList = function(){
   const todoList = Object.assign(TodoProto(), JSON.parse(localStorage.getItem("todoable-list")));
   todoList.projects = todoList.projects.map(project => Object.assign(ProjectProto(), project));
-  console.log(todoList.projects)
   return todoList;
 }
 
