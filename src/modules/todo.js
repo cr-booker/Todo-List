@@ -14,7 +14,7 @@ function TodoProto(){
   }
 
   function getProject(projectName){
-    return this.projects.find(project => project.name) === projectName;
+    return this.projects.find(project => project.name === projectName);
 }
 
   function addProject(newProjectName){
