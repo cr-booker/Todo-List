@@ -9,7 +9,7 @@ function Todo(){
 }
 
 function TodoProto(){
-  function contains(projectName){
+  function containsProject(projectName){
     return this.projects.some(project => project.name === projectName);
   }
 
@@ -34,7 +34,7 @@ function TodoProto(){
     }
   }
 
-  return Object.create({contains, getProject, addProject, deleteProject});
+  return Object.create({containsProject, getProject, addProject, deleteProject});
 }
 
 export {Todo, TodoProto}
