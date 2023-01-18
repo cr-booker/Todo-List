@@ -4,14 +4,13 @@ import { Todo } from "./todo";
 import { Storage } from "./storage";
 
 function UI(){}
-
-// UI static methods 
 UI.init = function(){
   UI.loadProjects();
   UI.initProjectBtns();
   UI.initTaskBtns();
 }
 
+// Project Methods
 UI.loadProjects = function(){
   const todoList = Storage.getTodoList()["projects"];
   todoList.forEach(project => {
@@ -28,7 +27,11 @@ UI.showProjectModal = function(){
 
 UI.closeProjectModal = function(){
   const projectModal = document.getElementsByClassName("project-modal")[0];
+  const projectNameInput = document.getElementById("project-name-input");
+  const inputErrorMessage = document.querySelector(".project-input-error");
   projectModal.classList.add("closed");
+  projectNameInput.value = "";
+  inputErrorMessage.textContent = "";
 }
 
 UI.addProject = function(){
@@ -44,11 +47,11 @@ UI.addProject = function(){
     inputErrorMessage.textContent = "Project name already taken.";
     return;
   }
+  Storage.addProject(Project(projectInputContent));
   UI.createProjectBtn(projectInputContent);
   UI.closeProjectModal();
-  projectNameInput.value = "";
-  inputErrorMessage.textContent = "";
 }
+  
 
 UI.createProjectBtn = function(projectName){
   const userProjects = document.getElementsByClassName("user-projects-container")[0];
@@ -81,7 +84,7 @@ UI.displayProject = function(element){
   const userProjectName = element.firstElementChild;
   const projectHeading = document.getElementById("active-project-name");
   projectHeading.textContent = userProjectName ? userProjectName.textContent : element.textContent;
-  // loadTasks(projectHeading.textContent);
+  UI.loadTasks(projectHeading.textContent);
   }
 
 UI. delegateProjects = function(target){
@@ -92,7 +95,7 @@ UI. delegateProjects = function(target){
     UI.displayProject(target)
   }
 }
-
+// Project Event Listeners
 UI.initProjectBtns = function(){
   const showProjectModalBtn = document.querySelector(".new-project-btn");
   showProjectModalBtn.addEventListener("click", UI.showProjectModal);
@@ -107,7 +110,17 @@ const projectsContainer = document.querySelector(".projects-container");
 projectsContainer.addEventListener("click", e => UI.delegateProjects(e.target));
 }
 
-// 
+// Tasks Methods
+UI.loadTasks = function(){
+  const taskList = document.querySelector(".task-list");
+  const projectName = document.getElementById("active-project-name").textContent;
+  taskList.innerHTML = "";
+  const project = Storage.getTodoList().getProject(projectName);
+  project.tasks.forEach(task => {
+    taskList.appendChild(UI.createTask(task.name));
+  })
+}
+
 UI.showTaskModal = function(){
   const modal = document.querySelector(".task-modal");
   modal.classList.remove("closed")
@@ -115,36 +128,12 @@ UI.showTaskModal = function(){
 
 UI.closeTaskModal = function(){
   const taskModal = document.querySelector(".task-modal");
-  taskModal.classList.add("closed");
-}
-
-UI.addTask = function(){
-  // Tasks field values
   const nameInput = document.getElementById("task-name-input");
   const prioritySelect = document.getElementById("task-priority-select");
   const dueDateInput = document.getElementById("task-duedate-input");
   const descriptionInput = document.getElementById("task-duedate-input");
-
-  const projectName = document.getElementById("active-project-name").textContent;
   const inputErrorMessage = document.querySelector(".task-input-error");
-  if (!nameInput.value.trim()){
-    inputErrorMessage.textContent = "Task name cannot be blank.";
-    return;
-  }
-  else if (Storage
-    .getTodoList()
-    .getProject(projectName)
-    .containsTask(nameInput.value.trim())){
-    inputErrorMessage.textContent = "Task already in project.";
-    return;
-  }
-  const tasksLists = document.querySelector(".task-list");
-  tasksLists.appendChild(UI.createTask(nameInput.value));
-  Storage.addTask(projectName, 
-    Task(nameInput.value.trim(), prioritySelect.value, 
-         dueDateInput.value || "No due Date", descriptionInput.value.trim()));
-
-  UI.closeTaskModal();
+  taskModal.classList.add("closed");
   nameInput.value = "";
   prioritySelect.value = "Low";
   dueDateInput.value = "";
@@ -152,13 +141,40 @@ UI.addTask = function(){
   inputErrorMessage.textContent = "";
 }
 
-UI.createTask = function(taskName){
+UI.addTask = function(){
+  // Tasks field values
+  const nameValue = document.getElementById("task-name-input").value.trim();
+  const priorityValue = document.getElementById("task-priority-select").value;
+  const dueDateValue = document.getElementById("task-duedate-input").value || "No Due Date";
+  const descriptionValue = document.getElementById("task-duedate-input").value.trim();
+
+  const projectName = document.getElementById("active-project-name").textContent;
+  const inputErrorMessage = document.querySelector(".task-input-error");
+  if (!nameValue){
+    inputErrorMessage.textContent = "Task name cannot be blank.";
+    return;
+  }
+  else if (Storage
+    .getTodoList()
+    .getProject(projectName)
+    .containsTask(nameValue)){
+    inputErrorMessage.textContent = "Task already in project.";
+    return;
+  }
+  const newTask =  Task(nameValue, priorityValue, dueDateValue, descriptionValue);
+  Storage.addTask(projectName, newTask);
+  const tasksList = document.querySelector(".task-list");
+  tasksList.appendChild(UI.createTask(newTask));
+  UI.closeTaskModal();
+}
+
+UI.createTask = function(task){
   const listElement = document.createElement("li");
   listElement.classList.add("project-task", "flex-container");
   const taskNameContainer = document.createElement("div");
   taskNameContainer.classList.add("task-left-panel");
   const nameOfTask = document.createElement("p");
-  nameOfTask.textContent = taskName;
+  nameOfTask.textContent = task.name;
   taskNameContainer.appendChild(nameOfTask);
   listElement.appendChild(taskNameContainer);
   return listElement;
@@ -173,5 +189,5 @@ UI.initTaskBtns = function(){
 
   const addTaskBtn = document.querySelector(".task-add-btn");
   addTaskBtn.addEventListener("click", UI.addTask);
-
 }
+
