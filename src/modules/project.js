@@ -23,8 +23,8 @@ function ProjectProto(){
   }
 
   function deleteTask(taskName){
-    const indexOfTask = this.tasks.findIndex(object => {
-      return object.getName() === taskName;
+    const indexOfTask = this.tasks.findIndex(task => {
+      return task.name === taskName;
     });
     
     if (indexOfTask !== -1){
