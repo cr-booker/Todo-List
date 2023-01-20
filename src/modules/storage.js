@@ -26,15 +26,15 @@ Storage.deleteProject = function(projectName){
   Storage.saveTodoList(todoList);
 }
 
-Storage.addTask = function(projectName, task){
+Storage.addTask = function(projectName, taskObj){
   const todoList = Storage.getTodoList();
-  todoList.getProject(projectName).addTask(task);
+  todoList.getProject(projectName).addTask(taskObj);
   Storage.saveTodoList(todoList);
 }
 
-Storage.deleteTask = function(projectName, task){
+Storage.deleteTask = function(projectName, taskName){
   const todoList = Storage.getTodoList();
-  todoList.getProject(projectName).deleteTask(task);
+  todoList.getProject(projectName).deleteTask(taskName);
   Storage.saveTodoList(todoList);
 }
 
