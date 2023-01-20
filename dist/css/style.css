@@ -14,6 +14,12 @@
 /* Palette */
 /*=========*/
 
+:root{
+    --low-priority-clr: #5ae95f;
+    --med-priority-clr: #ede747;
+    --high-priority-clr: #eb3737;
+}
+
 
 /*==================*/
 /* Element Styling */
@@ -38,10 +44,6 @@ header{
 aside{
     grid-area: sidebar;
     background: pink;
-}
-
-label{
-    display: block;
 }
 
 button{
@@ -79,6 +81,14 @@ footer{
 .modal.closed{
     visibility: hidden;
     opacity: 0;
+}
+
+.hidden{
+    display: none;
+}
+
+.delete{
+    cursor: pointer;
 }
 
 /*==================*/
@@ -122,6 +132,10 @@ footer{
     border-radius: 4px;
     background: whitesmoke;
     font-size: 1rem;
+}
+
+.modal-label{
+    display: block;
 }
 
 .modal-input{
@@ -177,6 +191,37 @@ footer{
 .project-display{
     background-color: blueviolet;
 }
+
+/* Tasks List */
+.task-priority-container{
+    align-items: center;
+    gap: 6px;
+}
+
+.priority{
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+}
+
+.priority-low{
+    background-color: var(--low-priority-clr);
+}
+
+.priority-medium{
+    background-color: var(--med-priority-clr);
+}
+
+.priority-high{
+    background-color: var(--high-priority-clr);
+}
+
+.delete-task-icon{
+    text-align: right;
+    background-color: palevioletred;
+    padding: .5em 0;
+}
+
 
 
 /*==================*/
