@@ -12,7 +12,7 @@
     <div class="project-modal-dialog modal-dialog grid-container">
       <h2 class="modal-heading">New Project</h2>
       <div>
-        <label for="project-name-input">Project Title</label>
+        <label class="modal-label" for="project-name-input">Project Title</label>
         <input type="text" id="project-name-input" class="modal-input" placeholder="Whats your project?">
         <p class="project-input-error error-message"></p>
       </div>
@@ -26,24 +26,24 @@
     <div class="task-modal-dialog modal-dialog grid-container">
       <h2 class="modal-heading">New Task</h2>
       <div>
-        <label for="task-name-input">Task Name</label>
+        <label class="modal-label" for="task-name-input">Task Name</label>
         <input type="text" id="task-name-input" class="modal-input" placeholder="What do you need to do?">
         <p class="task-input-error error-message"></p>
       </div>
       <div>
-        <label for="task-priority-select">Priority</label>
+        <label class="modal-label" for="task-priority-select">Priority</label>
         <select id="task-priority-select">
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
       </div>
       <div>
-        <label for="task-duedate-input">Due Date</label>
+        <label class="modal-label" for="task-duedate-input">Due Date</label>
         <input type="date" id="task-duedate-input" class="modal-input">
       </div>
       <div>
-        <label for="task-description-input">Description</label>
+        <label class="modal-label" for="task-description-input">Description</label>
         <input type="text" id="task-description-input" class="modal-input" placeholder="Description/Notes">
       </div>
       <div class="flex-container modal-btn-container">
@@ -75,10 +75,8 @@
     <div class="container project-display">
       <h2 id="active-project-name">Inbox</h2>
       <button class="new-task-btn" type="button">Add Task</button>
-      <div>
-        <ul class="task-list">
-        </ul>
-      </div>
+      <ul class="task-list">
+      </ul>
     </div>
    
   </main>
