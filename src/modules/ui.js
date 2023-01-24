@@ -83,9 +83,17 @@ UI.deleteProjectBtn = function(element){
 UI.displayProject = function(element){
   const userProjectName = element.firstElementChild;
   const projectHeading = document.getElementById("active-project-name");
+  const newTaskBtn = document.querySelector(".new-task-btn");
   projectHeading.textContent = userProjectName ? userProjectName.textContent : element.textContent;
-  UI.loadTasks(projectHeading.textContent);
+  if (projectHeading.textContent === "Today" || projectHeading.textContent == "This Week"){
+
+    newTaskBtn.classList.add("hidden");
   }
+  else{
+    newTaskBtn.classList.remove("hidden");
+    UI.loadTasks(projectHeading.textContent);
+  }
+}
 
 UI. delegateProjects = function(target){
   if (target.classList.contains("delete")){
@@ -117,7 +125,7 @@ UI.loadTasks = function(){
   taskList.innerHTML = "";
   const project = Storage.getTodoList().getProject(projectName);
   project.tasks.forEach(task => {
-    taskList.appendChild(UI.createTask(task.name));
+    UI.createTask(task);
   })
 }
 
@@ -135,7 +143,7 @@ UI.closeTaskModal = function(){
   const inputErrorMessage = document.querySelector(".task-input-error");
   taskModal.classList.add("closed");
   nameInput.value = "";
-  prioritySelect.value = "Low";
+  prioritySelect.value = "low";
   dueDateInput.value = "";
   descriptionInput.value = "";
   inputErrorMessage.textContent = "";
@@ -146,7 +154,7 @@ UI.addTask = function(){
   const nameValue = document.getElementById("task-name-input").value.trim();
   const priorityValue = document.getElementById("task-priority-select").value;
   const dueDateValue = document.getElementById("task-duedate-input").value || "No Due Date";
-  const descriptionValue = document.getElementById("task-duedate-input").value.trim();
+  const descriptionValue = document.getElementById("task-description-input").value.trim();
 
   const projectName = document.getElementById("active-project-name").textContent;
   const inputErrorMessage = document.querySelector(".task-input-error");
@@ -163,21 +171,45 @@ UI.addTask = function(){
   }
   const newTask =  Task(nameValue, priorityValue, dueDateValue, descriptionValue);
   Storage.addTask(projectName, newTask);
-  const tasksList = document.querySelector(".task-list");
-  tasksList.appendChild(UI.createTask(newTask));
+  UI.createTask(newTask);
   UI.closeTaskModal();
 }
 
 UI.createTask = function(task){
-  const listElement = document.createElement("li");
-  listElement.classList.add("project-task", "flex-container");
-  const taskNameContainer = document.createElement("div");
-  taskNameContainer.classList.add("task-left-panel");
-  const nameOfTask = document.createElement("p");
-  nameOfTask.textContent = task.name;
-  taskNameContainer.appendChild(nameOfTask);
-  listElement.appendChild(taskNameContainer);
-  return listElement;
+  const taskList = document.querySelector(".task-list");
+  const projectName = document.getElementById("active-project-name").textContent;
+  taskList.innerHTML += `
+  <li class="task grid-container">
+    <div class="delete-task-btn-container">
+      <button type="button" class="delete-task-btn">&#215</button> 
+    </div>
+    <div class="task-content flex-container">
+      <div class="task-name-container flex-container">
+        <input class="task-checkbox" id="${projectName}-${task.name}" type="checkbox">
+        <label for="task-${task.name}" class="task-label">${task.name}</label>
+        <div class="priority ${task.priority}"></div>
+      </div>
+      <div class="task-details-container flex-container">
+        <button type="button" class="task-details-btn">Details</button>
+        <p>${task.dueDate}</p>
+      </div>
+    </div>
+  </li>`
+}
+
+UI.deleteTask = function(element){
+  const taskToDelete = element.parentNode.parentNode;
+  const taskName = taskToDelete.querySelector(".task-label").textContent;
+  const projectName = document.getElementById("active-project-name").textContent;
+  Storage.deleteTask(projectName, taskName);
+  taskToDelete.remove();
+}
+
+UI.delegateTasks = function(target){
+  console.log(target)
+  if (target.classList.contains("delete-task-btn")){
+    UI.deleteTask(target);
+  }
 }
 
 UI.initTaskBtns = function(){
@@ -189,5 +221,7 @@ UI.initTaskBtns = function(){
 
   const addTaskBtn = document.querySelector(".task-add-btn");
   addTaskBtn.addEventListener("click", UI.addTask);
-}
 
+  const taskList = document.querySelector(".task-list");
+  taskList.addEventListener("click", e => UI.delegateTasks(e.target))
+}
