@@ -22,9 +22,10 @@
     --solid-pink: #883041;
     --copper: #BA6E6E;
     --antique-white: #F0E7D8;
+    --wine: #6A2533;
 
     --header-clr: var(--antique-white);
-    /* --header-bg-clr:; */
+    --header-bg-clr:var(--wine);
 
     --sidebar-bg: var(--copper);
     --primary-btn-color: var(--antique-white);
@@ -38,6 +39,8 @@
     --low-priority-clr: var(--green);
     --med-priority-clr: var(--yellow);
     --high-priority-clr: var(--red);
+
+    --footer-bg: var(--wine)
 }
 
 /*==================*/
@@ -45,6 +48,7 @@
 /*=================*/
 body{
     min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
@@ -54,11 +58,16 @@ body{
     "footer";
 }
 
+h1,h2,h3{
+    font-family: 'Bebas Neue', cursive;
+}
+
 header{
     grid-area: header;
-    background: red;
-    padding: 1em;
+    background: var(--header-bg-clr);
+    padding: .7em;
     color: var(--antique-white);
+    font-size: 1.5rem;
 }
 
 aside{
@@ -67,6 +76,7 @@ aside{
 
 button{
     cursor: pointer;
+    border: none;
 }
 
 main{
@@ -77,6 +87,7 @@ main{
 footer{
     grid-area: footer;
     padding: .7em 0;
+    background: var(--footer-bg);
 }
 
 /*==================*/
@@ -112,6 +123,10 @@ footer{
 /*==================*/
 /*      Layout     */
 /*=================*/
+/* Header */
+.logo-container{
+    justify-content: center;
+}
 
 /* Modals */
 .modal{
@@ -198,6 +213,17 @@ footer{
     background: var(--primart-btn-hover-bg);
 }
 
+.new-project-btn-container{
+    margin: 1em 0 1.4em;
+    justify-content: center;
+    font-size: 1.1rem;
+    gap: 10px;
+}
+
+.new-project-btn{
+    background: none;
+}
+
 .user-project{
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
@@ -273,8 +299,6 @@ footer{
     flex-direction: column;
 }
 
-
-
 /*==================*/
 /*    M. Queries   */
 /*=================*/
@@ -287,5 +311,9 @@ footer{
         "header header"
         "sidebar main"
         "footer footer";
+    }
+
+    .logo-container{
+        justify-content: left;
     }
 }
