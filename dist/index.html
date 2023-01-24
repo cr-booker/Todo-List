@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="grid-container">
   <div class="modal closed project-modal">
@@ -64,11 +67,16 @@
       <button id="today" class="project default-project" type="button">Today</button>
       <button id="this-week" class="project default-project" type="button">This Week</button>
     </div>
-    <div>
+    <div class="new-project-btn-container flex-container">
       <h2>Projects</h2>
+      <button class="new-project-btn" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#F0E7D8" width="20" height="20" viewBox="0 0 24 24">
+          <path d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z"/>
+        </svg>
+      </button>
+    </div>
       <div class="user-projects-container">
-      </div>
-      <button class="new-project-btn" type="button">New Project</button>
+      </div> 
     </div>
   </aside>
   <main>
@@ -77,8 +85,6 @@
       <button class="new-task-btn" type="button">Add Task</button>
       <ul class="task-list">
       </ul>
-    </div>
-   
   </main>
   <footer>
   </footer> 
