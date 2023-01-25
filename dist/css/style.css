@@ -192,10 +192,6 @@ footer{
     background: var(--sidebar-bg);
 }
 
-.default-projects-container{
-    flex-direction: column;
-}
-
 .project{
     width: 80%;
     margin: 1em auto;
@@ -207,6 +203,10 @@ footer{
     color: var(--primary-btn-color);
     font-size: 0.938rem;
     font-weight: 700;
+}
+
+.default-project{
+    width: 30%;
 }
 
 .project:hover{
@@ -311,6 +311,14 @@ footer{
         "header header"
         "sidebar main"
         "footer footer";
+    }
+
+    .default-project{
+        width: 80%;
+    }
+
+    .default-projects-container{
+        flex-direction: column;
     }
 
     .logo-container{
