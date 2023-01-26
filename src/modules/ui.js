@@ -72,12 +72,15 @@ UI.createProjectBtn = function(projectName){
 }
 
 UI.deleteProjectBtn = function(element){
-  const parentNode = element.parentNode;
-  const projectName = parentNode.querySelector('.user-project-name').textContent;
+  const btnToDelete = element.parentNode;
+  const activeproject = document.getElementById("active-project-name").textContent;
+  const projectName = btnToDelete.querySelector('.user-project-name').textContent;
   Storage.deleteProject(projectName);
-  const displayNext = parentNode.nextElementSibling || parentNode.previousElementSibling || document.getElementById("inbox");
-  UI.displayProject(displayNext);
-  parentNode.remove();
+  const displayNext = btnToDelete.nextElementSibling || btnToDelete.previousElementSibling || document.getElementById("inbox");
+  if (activeproject == projectName ){
+    UI.displayProject(displayNext);
+  }
+  btnToDelete.remove();
 }
 
 UI.displayProject = function(element){
