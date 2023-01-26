@@ -29,9 +29,10 @@
 
     --sidebar-bg: var(--copper);
     --primary-btn-color: var(--antique-white);
+    --primary-btn-bxshadow: var(--wine);
     --primary-btn-border:var(--antique-white) ;
     --primary-btn-bg: var(--amaranth);
-    --primart-btn-hover-bg: var(--solid-pink);
+    --primary-btn-hover-bg: var(--solid-pink);
     --main-bg-clr: var(--antique-white); 
 
     --error-clr: var(--red);
@@ -148,15 +149,14 @@ footer{
  .modal-dialog{
     position: relative;
     gap: 1em;
+    border: 4px solid var(--modal-dialog-border);
     border-radius: 10px;
     padding: 1.25em 2em;
-    background: white;
-	border-radius: 10px;
-    border-top: 30px solid aqua;
  }
 
  .modal-heading{
      text-align: center;
+     font-size: 1.688rem;
  }
 
 .modal-btn{   
@@ -203,6 +203,7 @@ footer{
     color: var(--primary-btn-color);
     font-size: 0.938rem;
     font-weight: 700;
+    box-shadow: 0px 3px 5px var(--primary-btn-bxshadow);
 }
 
 .default-project{
@@ -210,7 +211,7 @@ footer{
 }
 
 .project:hover{
-    background: var(--primart-btn-hover-bg);
+    background: var(--primary-btn-hover-bg);
 }
 
 .new-project-btn-container{
