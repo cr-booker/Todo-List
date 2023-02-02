@@ -72,8 +72,6 @@ UI.createProjectBtn = function(projectName){
 }
 
 UI.deleteProjectBtn = function(element){
-  const taskList = document.querySelector(".task-list");
-  console.log(taskList)
   const btnToDelete = element.parentNode;
   const activeproject = document.getElementById("active-project-name").textContent;
   const projectName = btnToDelete.querySelector('.user-project-name').textContent;
@@ -83,9 +81,7 @@ UI.deleteProjectBtn = function(element){
     UI.displayProject(displayNext);
   }
   btnToDelete.remove();
-  if (taskList.childElementCount == 0){
-    taskList.classList.add("hidden")
-  }
+  UI.hideEmptyTaskList();
 }
 
 UI.displayProject = function(element){
@@ -93,13 +89,11 @@ UI.displayProject = function(element){
   const newTaskBtn = document.querySelector(".new-task-btn");
   const projectToDisplayName = element.firstElementChild ? element.firstElementChild.textContent : element.textContent;
   const taskList = document.querySelector(".task-list");
-  if (taskList.childElementCount == 0){
-    taskList.classList.add("hidden")
-  }
- 
+  UI.hideEmptyTaskList();
   if (currentProjectHeading.textContent === projectToDisplayName){
     return;
   };
+
   currentProjectHeading.textContent = projectToDisplayName
   if (projectToDisplayName === "Today" || projectToDisplayName == "This Week"){
     newTaskBtn.classList.add("hidden");
@@ -145,6 +139,13 @@ UI.loadTasks = function(){
   project.tasks.forEach(task => {
     UI.createTask(task);
   })
+}
+
+UI.hideEmptyTaskList = function(){
+  const taskList = document.querySelector(".task-list");
+  if (taskList.childElementCount == 0){
+    taskList.classList.add("hidden")
+  }
 }
 
 UI.showTaskModal = function(){
@@ -217,15 +218,12 @@ UI.createTask = function(task){
 }
 
 UI.deleteTask = function(element){
-  const taskList = document.querySelector(".task-list");
   const taskToDelete = element.parentNode.parentNode;
   const taskName = taskToDelete.querySelector(".task-label").textContent;
   const projectName = document.getElementById("active-project-name").textContent;
   Storage.deleteTask(projectName, taskName);
   taskToDelete.remove();
-  if (taskList.childElementCount == 0){
-    taskList.classList.add("hidden");
-  }
+  UI.hideEmptyTaskList();
 }
 
 UI.delegateTasks = function(target){
