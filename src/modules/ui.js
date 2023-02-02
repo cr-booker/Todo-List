@@ -5,6 +5,7 @@ import { Storage } from "./storage";
 
 function UI(){}
 UI.init = function(){
+  UI.displayProject(document.getElementById("inbox"))
   UI.loadProjects();
   UI.initProjectBtns();
   UI.initTaskBtns();
@@ -52,7 +53,6 @@ UI.addProject = function(){
   UI.closeProjectModal();
 }
   
-
 UI.createProjectBtn = function(projectName){
   const userProjects = document.getElementsByClassName("user-projects-container")[0];
   const newProject =  document.createElement("button");
@@ -72,6 +72,8 @@ UI.createProjectBtn = function(projectName){
 }
 
 UI.deleteProjectBtn = function(element){
+  const taskList = document.querySelector(".task-list");
+  console.log(taskList)
   const btnToDelete = element.parentNode;
   const activeproject = document.getElementById("active-project-name").textContent;
   const projectName = btnToDelete.querySelector('.user-project-name').textContent;
@@ -81,20 +83,31 @@ UI.deleteProjectBtn = function(element){
     UI.displayProject(displayNext);
   }
   btnToDelete.remove();
+  if (taskList.childElementCount == 0){
+    taskList.classList.add("hidden")
+  }
 }
 
 UI.displayProject = function(element){
-  const userProjectName = element.firstElementChild;
-  const projectHeading = document.getElementById("active-project-name");
+  const currentProjectHeading = document.getElementById("active-project-name");
   const newTaskBtn = document.querySelector(".new-task-btn");
-  projectHeading.textContent = userProjectName ? userProjectName.textContent : element.textContent;
-  if (projectHeading.textContent === "Today" || projectHeading.textContent == "This Week"){
-
+  const projectToDisplayName = element.firstElementChild ? element.firstElementChild.textContent : element.textContent;
+  const taskList = document.querySelector(".task-list");
+  if (taskList.childElementCount == 0){
+    taskList.classList.add("hidden")
+  }
+ 
+  if (currentProjectHeading.textContent === projectToDisplayName){
+    return;
+  };
+  currentProjectHeading.textContent = projectToDisplayName
+  if (projectToDisplayName === "Today" || projectToDisplayName == "This Week"){
     newTaskBtn.classList.add("hidden");
+    return;
   }
   else{
     newTaskBtn.classList.remove("hidden");
-    UI.loadTasks(projectHeading.textContent);
+    UI.loadTasks(currentProjectHeading.textContent);
   }
 }
 
@@ -102,10 +115,12 @@ UI. delegateProjects = function(target){
   if (target.classList.contains("delete")){
     UI.deleteProjectBtn(target);
   }
+
   else if (target.classList.contains("project")){
     UI.displayProject(target)
   }
 }
+
 // Project Event Listeners
 UI.initProjectBtns = function(){
   const showProjectModalBtn = document.querySelector(".new-project-btn");
@@ -180,6 +195,7 @@ UI.addTask = function(){
 
 UI.createTask = function(task){
   const taskList = document.querySelector(".task-list");
+  taskList.classList.remove("hidden");
   const projectName = document.getElementById("active-project-name").textContent;
   taskList.innerHTML += `
   <li class="task grid-container">
@@ -201,15 +217,18 @@ UI.createTask = function(task){
 }
 
 UI.deleteTask = function(element){
+  const taskList = document.querySelector(".task-list");
   const taskToDelete = element.parentNode.parentNode;
   const taskName = taskToDelete.querySelector(".task-label").textContent;
   const projectName = document.getElementById("active-project-name").textContent;
   Storage.deleteTask(projectName, taskName);
   taskToDelete.remove();
+  if (taskList.childElementCount == 0){
+    taskList.classList.add("hidden");
+  }
 }
 
 UI.delegateTasks = function(target){
-  console.log(target)
   if (target.classList.contains("delete-task-btn")){
     UI.deleteTask(target);
   }
@@ -228,3 +247,6 @@ UI.initTaskBtns = function(){
   const taskList = document.querySelector(".task-list");
   taskList.addEventListener("click", e => UI.delegateTasks(e.target))
 }
+
+UI.init();
+
