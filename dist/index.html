@@ -61,7 +61,7 @@
     </div>
     <div class="date-container"><time class="date"></time></div>
   </header>
-  <aside class="projects-container">
+  <div class="projects-container">
     <div class="default-projects-container flex-container">
       <button id="inbox" class="project default-project" type="button">Inbox</button>
       <button id="today" class="project default-project" type="button">Today</button>
@@ -78,13 +78,24 @@
       <div class="user-projects-container">
       </div> 
     </div>
-  </aside>
+  </div>
   <main>
     <div class="container project-display">
-      <h2 id="active-project-name">Inbox</h2>
-      <button class="new-task-btn" type="button">Add Task</button>
+      <div class="flex-container active-project-name-container">
+        <h2 id="active-project-name"></h2>
+        <button class="new-task-btn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#A63A50" width="20" height="20" viewBox="0 0 24 24">
+            <path d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z"/>
+          </svg>
+        </button>
+      </div>
       <ul class="task-list">
       </ul>
+    </div>
+    <div class="empty-task-container">
+      <button>Add Task</button>
+    </div>
+
   </main>
   <footer>
   </footer> 
