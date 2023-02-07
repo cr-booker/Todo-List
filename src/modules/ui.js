@@ -6,9 +6,20 @@ import { Storage } from "./storage";
 function UI(){}
 UI.init = function(){
   UI.displayProject(document.getElementById("inbox"))
+  UI.hideEmptyTaskList();
   UI.loadProjects();
   UI.initProjectBtns();
   UI.initTaskBtns();
+}
+
+UI.hideElement = function(elementSelector){
+  const element = document.querySelector(elementSelector);
+  element.classList.add("hidden");
+}
+
+UI.showElement = function(elementSelector){
+  const element = document.querySelector(elementSelector);
+  element.classList.remove("hidden");
 }
 
 // Project Methods
@@ -27,7 +38,7 @@ UI.showProjectModal = function(){
 }
 
 UI.closeProjectModal = function(){
-  const projectModal = document.getElementsByClassName("project-modal")[0];
+  const projectModal = document.querySelector(".project-modal");
   const projectNameInput = document.getElementById("project-name-input");
   const inputErrorMessage = document.querySelector(".project-input-error");
   projectModal.classList.add("closed");
@@ -54,10 +65,10 @@ UI.addProject = function(){
 }
   
 UI.createProjectBtn = function(projectName){
-  const userProjects = document.getElementsByClassName("user-projects-container")[0];
-  const newProject =  document.createElement("button");
-  newProject.classList.add("project", "user-project", "grid-container");
-  newProject.type = "button";
+  const userProjects = document.querySelector(".user-projects-container");
+  const newProjectBtn =  document.createElement("button");
+  newProjectBtn.classList.add("project", "user-project", "grid-container");
+  newProjectBtn.type = "button";
 
   const projectNameContainer = document.createElement("span");
   projectNameContainer.classList.add("user-project-name");
@@ -66,9 +77,9 @@ UI.createProjectBtn = function(projectName){
   const delIcon = document.createElement("span");
   delIcon.textContent = `\u00D7`;
   delIcon.classList.add("delete", "delete-project-icon");
-  newProject.appendChild(projectNameContainer);
-  newProject.appendChild(delIcon);
-  userProjects.appendChild(newProject);
+  newProjectBtn.appendChild(projectNameContainer);
+  newProjectBtn.appendChild(delIcon);
+  userProjects.appendChild(newProjectBtn);
 }
 
 UI.deleteProjectBtn = function(element){
@@ -81,26 +92,22 @@ UI.deleteProjectBtn = function(element){
     UI.displayProject(displayNext);
   }
   btnToDelete.remove();
-  UI.hideEmptyTaskList();
 }
 
 UI.displayProject = function(element){
   const currentProjectHeading = document.getElementById("active-project-name");
-  const newTaskBtn = document.querySelector(".new-task-btn");
   const projectToDisplayName = element.firstElementChild ? element.firstElementChild.textContent : element.textContent;
-  const taskList = document.querySelector(".task-list");
-  UI.hideEmptyTaskList();
   if (currentProjectHeading.textContent === projectToDisplayName){
     return;
   };
 
   currentProjectHeading.textContent = projectToDisplayName
   if (projectToDisplayName === "Today" || projectToDisplayName == "This Week"){
-    newTaskBtn.classList.add("hidden");
+    UI.hideElement(".new-task-btn-large");
+    UI.hideElement(".new-task-btn-small");
     return;
   }
   else{
-    newTaskBtn.classList.remove("hidden");
     UI.loadTasks(currentProjectHeading.textContent);
   }
 }
@@ -116,6 +123,7 @@ UI. delegateProjects = function(target){
 }
 
 // Project Event Listeners
+// ==========================
 UI.initProjectBtns = function(){
   const showProjectModalBtn = document.querySelector(".new-project-btn");
   showProjectModalBtn.addEventListener("click", UI.showProjectModal);
@@ -126,11 +134,12 @@ UI.initProjectBtns = function(){
   const addProjectBtn = document.querySelector(".project-add-btn");
   addProjectBtn.addEventListener("click", UI.addProject);
 
-const projectsContainer = document.querySelector(".projects-container");
-projectsContainer.addEventListener("click", e => UI.delegateProjects(e.target));
+  const projectsContainer = document.querySelector(".projects-container");
+  projectsContainer.addEventListener("click", e => UI.delegateProjects(e.target));
 }
 
 // Tasks Methods
+// ==================
 UI.loadTasks = function(){
   const taskList = document.querySelector(".task-list");
   const projectName = document.getElementById("active-project-name").textContent;
@@ -139,18 +148,22 @@ UI.loadTasks = function(){
   project.tasks.forEach(task => {
     UI.createTask(task);
   })
+  UI.showElement(".new-task-btn-small")
+  UI.hideEmptyTaskList();
 }
 
 UI.hideEmptyTaskList = function(){
   const taskList = document.querySelector(".task-list");
   if (taskList.childElementCount == 0){
-    taskList.classList.add("hidden")
+    UI.hideElement(".task-list");
+    UI.showElement(".new-task-btn-large");
+    UI.hideElement(".new-task-btn-small");
   }
 }
 
 UI.showTaskModal = function(){
-  const modal = document.querySelector(".task-modal");
-  modal.classList.remove("closed")
+  const taskModal = document.querySelector(".task-modal");
+  taskModal.classList.remove("closed");
 }
 
 UI.closeTaskModal = function(){
@@ -195,8 +208,10 @@ UI.addTask = function(){
 }
 
 UI.createTask = function(task){
+  UI.showElement(".task-list");
+  UI.hideElement(".new-task-btn-large");
+  UI.showElement(".new-task-btn-small");
   const taskList = document.querySelector(".task-list");
-  taskList.classList.remove("hidden");
   const projectName = document.getElementById("active-project-name").textContent;
   taskList.innerHTML += `
   <li class="task grid-container">
@@ -232,9 +247,12 @@ UI.delegateTasks = function(target){
   }
 }
 
+// Task Event Listeners
+// ==========================
 UI.initTaskBtns = function(){
-  const showTaskModalBtn = document.querySelector(".new-task-btn");
-  showTaskModalBtn.addEventListener("click", UI.showTaskModal);
+  const showTaskModalBtn = document.querySelectorAll(".new-task-btn");
+  showTaskModalBtn.forEach(btn => {
+    btn.addEventListener("click", UI.showTaskModal)});
 
   const closeTaskModalBtn = document.querySelector(".task-cancel-btn");
   closeTaskModalBtn.addEventListener("click", UI.closeTaskModal);
@@ -246,5 +264,5 @@ UI.initTaskBtns = function(){
   taskList.addEventListener("click", e => UI.delegateTasks(e.target))
 }
 
-UI.init();
+export {UI}
 
