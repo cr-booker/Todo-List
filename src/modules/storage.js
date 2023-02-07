@@ -1,11 +1,11 @@
 import { ProjectProto } from "./project";
-import { TodoProto } from "./todo";
+import { Todo, TodoProto } from "./todo";
 
 function Storage(){}
-
 // Storage Static methods
 Storage.getTodoList = function(){
-  const todoList = Object.assign(TodoProto(), JSON.parse(localStorage.getItem("todoable-list")));
+  const projects = JSON.parse(localStorage.getItem("todoable-list")) || Todo()
+  const todoList = Object.assign(TodoProto(), projects);
   todoList.projects = todoList.projects.map(project => Object.assign(ProjectProto(), project));
   return todoList;
 }
