@@ -36,12 +36,12 @@ function ProjectProto(){
     return this.tasks.filter(task => isToday(task.dueDate));
   }
 
-  function clearAllTasks(){
-    this.tasks.length = 0;
-  }
-
   function getWeeksTasks(){
     return this.tasks.filter(task => isThisWeek(task.dueDate));
+  }
+
+  function clearAllTasks(){
+    this.tasks.length = 0;
   }
 
   return Object.create({containsTask, getTask, addTask, deleteTask, clearAllTasks, getWeeksTasks, getTodaysTasks});
