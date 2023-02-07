@@ -13,8 +13,8 @@
 /*==========*/
 /* Palette */
 /*=========*/
-
 :root{
+    /* Color Palette */
     --green: #5ae95f;
     --yellow: #ede747;
     --red: #eb3737;
@@ -113,6 +113,7 @@ main{
     grid-area: main;
     background: var(--main-bg-clr);
     padding: 1em 0;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 footer{
@@ -229,6 +230,11 @@ footer{
     background: var(--sidebar-bg);
 }
 
+.user-projects-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
 .project{
     width: 80%;
     margin: 1em auto;
@@ -255,7 +261,8 @@ footer{
     margin: 1em 0 1.4em;
     justify-content: center;
     font-size: 1.1rem;
-    gap: 10px;
+    gap: 5px;
+    flex-direction: column;
 }
 
 .new-project-btn{
@@ -263,7 +270,7 @@ footer{
 }
 
 .user-project{
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
 }
 
@@ -279,14 +286,40 @@ footer{
 
 /* Project Display */
 .active-project-name-container{
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 1em 0;
 }
 
 #active-project-name{
     font-size: 2.08rem;
 }
 
-/* Tasks List */
+.empty-tasklist-container{
+    justify-content: center;
+    align-content: center;
+}
+
+
+
+/* Task List */
+.new-task-btn{
+    background: transparent;
+	border: 4px solid var(--wine);
+	width: fit-content;
+	height: fit-content;
+	padding: .02em 1.3em;
+    border-radius: 10px;
+}
+
+.new-task-btn-small{
+	font-size: 1rem;
+}
+
+.new-task-btn-large{
+	font-size: 1.5rem;
+}
+
 .task-list{
     background: var(--ul-bg);
     border-radius: 10px;
@@ -365,7 +398,7 @@ footer{
 
 @media (min-width:50em){
     body{
-        grid-template-columns: 1fr 4fr;
+        grid-template-columns: minmax(250px, 1fr) 3fr;
         grid-template-rows: auto 1fr auto;
         grid-template-areas:
         "header header"
@@ -379,6 +412,10 @@ footer{
 
     .default-projects-container{
         flex-direction: column;
+    }
+
+    .user-projects-container{
+        grid-template-columns: 1fr;
     }
 
     .logo-container{
